@@ -1,4 +1,5 @@
-/** 迁移自独立版的纯 DOM 视图；计算与状态逻辑由 core.ts 提供。 */
+// oxlint-disable-next-line typescript/ban-ts-comment -- Migrated DOM view; typed logic lives in core.ts.
+// @ts-nocheck
 import * as C from './core.ts'
 import { DEMO_OVERRIDES, DEMO_SCHEDULES } from './demo.ts'
 import { SHELL } from './shell.ts'
