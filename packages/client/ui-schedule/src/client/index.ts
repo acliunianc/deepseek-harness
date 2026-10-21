@@ -57,16 +57,12 @@ import { TaskTabBindings } from './task-tab-bindings.ts'
 import { TaskManagerPage, type TaskManagerInjected } from './TaskManagerPage.tsx'
 import type { TaskDetailInjected } from './TaskDetail.tsx'
 import { TaskManagerIcon } from './TaskManagerIcon.tsx'
-import { CapacityIcon } from './capacity/CapacityIcon.tsx'
-import { CapacityPage } from './capacity/CapacityPage.tsx'
 import { sessionLinkState } from './session-link.ts'
 import { en, NS, zh, type ScheduleCatalogKey } from './locales.ts'
 import { en as managerEn, zh as managerZh, type TaskManagerKey } from './task-manager-locales.ts'
 
 const MANAGER_NS = 'schedule.manager'
 const PANEL_ID = 'schedules' as MainPanelId
-/** 影刀容量地图：与自动化任务并列的第二个主面板。 */
-const CAPACITY_PANEL_ID = 'capacity' as MainPanelId
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface LocaleNamespaceMap {
@@ -186,19 +182,6 @@ export function apply(ctx: ClientContext): void {
     locale: MANAGER_NS,
     label: () => t('panel'),
   }, TaskManagerIcon))
-  // 影刀计划容量地图：浏览器直接读取影刀计划接口，按执行时长推算并发与机器人缺口。
-  ctx.slots.inject('main', () => ctx.slots.register({
-    name: 'main',
-    key: CAPACITY_PANEL_ID,
-    locale: MANAGER_NS,
-  }, CapacityPage))
-  ctx.slots.inject('sidebar.panellist', () => ctx.slots.register({
-    name: 'sidebar.panellist',
-    id: CAPACITY_PANEL_ID,
-    order: 11,
-    locale: MANAGER_NS,
-    label: () => t('capacity.panel'),
-  }, CapacityIcon))
   // The created task is a Turn-level element, not a Tool-group row: the Turn
   // Definition publishes the settled result and this tail list entry renders
   // the card beneath the closing prose.
